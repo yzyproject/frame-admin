@@ -36,8 +36,8 @@ class Login extends React.Component{
                     sort:args.sort
                 },true
             )
-            if(res.status ==="success" && (res.data.list||[]).length > 0){
-                localStorage.user = JSON.stringify(res.data.list[0])
+            if(res.status ==="success" && (res||[]).length > 0){
+                localStorage.user = JSON.stringify(res[0])
                 this.login();
             }
         }else{
