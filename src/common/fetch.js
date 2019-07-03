@@ -10,7 +10,7 @@ export default class Fetchs{
      */
     async fetch (url,data){
         let res,error;
-        let obj = JSON.stringify({})
+        let obj = JSON.stringify(data)
         await fetch(url,{
             method:"post",
                 body:obj
