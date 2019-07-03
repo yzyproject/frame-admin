@@ -19,22 +19,18 @@ class Login extends React.Component{
     async Init(values){
         let user = values || {};
         if(user.userName && user.password){
-            let args = {}
-            args = Object.assign(user,this.state);
-            args.filter = {
-                $and:[
-                    {userName:user.userName},
-                    {password:user.password}
-                ]
+            let data = {}
+            data = Object.assign(user,this.state);
+            data.filter = {
+                userName:user.userName,
+                password:user.password
             }
             let f = new Fetch();
             let res = await f.fetch(Config.host+'/c/cc',
                 {
-                    filter:args.filter,
-                    limit:args.limit,
-                    page:args.page,
-                    sort:args.sort
-                },true
+                    name:"yzy",
+                    password:"aaaa"
+                }
             )
             if(res.status ==="success" && (res||[]).length > 0){
                 localStorage.user = JSON.stringify(res[0])
