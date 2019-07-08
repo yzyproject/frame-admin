@@ -31,7 +31,7 @@ class Login extends React.Component{
                 password:{target:user.password}
             }
             let f = new Fetch();
-            let res = await f.fetch(Config.host+'/c/cc',data)
+            let res = await f.fetch(Config.host+'/login/login',data)
             if(res.status ==="success" && (res||[]).length > 0){
                 localStorage.user = JSON.stringify(res[0])
                 this.login();
