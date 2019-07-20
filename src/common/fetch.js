@@ -11,9 +11,11 @@ export default class Fetchs{
     async fetch (url,data){
         let res,error;
         let obj = JSON.stringify(data)
+        let tionkfeon = localStorage.getItem("tionkfeon");
         await fetch(url,{
             method:"post",
-                body:obj
+            body:obj,
+            headers: {'Authorization':tionkfeon ||""}
         })
         .then(function (response){
             if (response.status == 200){

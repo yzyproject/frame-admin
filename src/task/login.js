@@ -3,10 +3,13 @@ import 'antd/dist/antd.css'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import Config from '../config';
 import Fetch from '../common/fetch'; 
+import Islogin from '../common/islogin'; 
+let lg = new Islogin();
 const FormItem = Form.Item;
 class Login extends React.Component{
     constructor(obj){
         super(obj)
+        lg.isLogin("page_login");
     }
     async handleSubmit(e) {
         e.preventDefault();
@@ -32,12 +35,11 @@ class Login extends React.Component{
             }
             let f = new Fetch();
             let res = await f.fetch(Config.host+'/login/login',data)
-            if(res.status ==="success" && (res||[]).length > 0){
-                localStorage.user = JSON.stringify(res[0])
-                this.login();
+            if(res.status === "success" && res.code === 200){
+                localStorage.tionkfeon = JSON.stringify(res.token);
+                lg = new Islogin();
+                lg.isLogin("page_login");
             }
-        }else{
-            this.login()
         }
     }
     render(){
