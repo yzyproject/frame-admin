@@ -23,7 +23,7 @@ class Login extends React.Component{
         let user = values || {};
         if(user.userName && user.password){
             let data = {
-                options:"name,phone,admin_name",
+                options:"id,name",
                 orderBy:"id desc,creat_at desc",
                 startPops:0,
                 limit:10

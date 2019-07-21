@@ -24,13 +24,16 @@ export default class Fetchs{
             
         }).then((response)=>{
             res = JSON.parse(response) 
+            if(res.statusCode === 403){
+                localStorage.removeItem("tionkfeon")
+                window.location.href = "http://localhost:3000"
+                return;
+            }
         })
         .catch(function(err){
             error = err
             // console.log("Fetch错误:"+err);
         });
         return res ? res : error;
-       
-        
     }
 }
