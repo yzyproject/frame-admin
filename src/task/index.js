@@ -21,7 +21,7 @@ class Index extends React.Component{
     };
     async Init(values){
         let data = {
-            options:"id,sub_id, parent_id,title,menu_url,icon,default_selected_keys,default_open_keys",
+            options:"id,is_sub, parent_id,title,menu_url,icon,default_selected_keys,default_open_keys",
             orderBy:"",
             startPops:"",
             limit:""
@@ -35,7 +35,7 @@ class Index extends React.Component{
         }
     }
     setMenu(menuItem){
-      if(menuItem.sub_id){
+      if(menuItem.is_sub){
         return (
           <SubMenu
           key = {menuItem.id}
