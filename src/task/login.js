@@ -37,6 +37,7 @@ class Login extends React.Component{
             let res = await f.fetch(Config.host+'/login/login',data)
             if(res.status === "success" && res.code === 200){
                 localStorage.tionkfeon = JSON.stringify(res.token);
+                localStorage.user = JSON.stringify(res.array[0]||[]);
                 lg = new Islogin();
                 lg.isLogin("page_login");
             }

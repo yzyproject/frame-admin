@@ -1,0 +1,23 @@
+.menu_item_box span{
+    padding: 0 20px;
+}
+/* .ant-menu-submenu-title{
+    padding-left: 24px !important;
+}
+.ant-menu-item{
+    padding-left: 50px !important;
+} */
+/* .menu_item_box{
+    display: flex;
+    justify-content: space-between;
+} */
+.add_menu_item{
+    float: right;
+}
+.menu{
+    margin-right: 8px;
+}
+.add_menu{
+    float: right;
+    padding: 10px 20px;
+}
