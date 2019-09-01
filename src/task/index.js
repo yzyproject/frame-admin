@@ -45,7 +45,6 @@ class Index extends React.Component{
                 {menuItem.id}
             </span>
             }
-          
           >
             {
              menuItem.child?menuItem.child.map(c=>{
@@ -56,7 +55,7 @@ class Index extends React.Component{
         )
       }else{
         return (
-          <Menu.Item key = {menuItem.id}><Link to={menuItem.menu_url}>{menuItem.id}</Link></Menu.Item>
+          <Menu.Item key = {menuItem.id}><Link to={menuItem.menu_url.replace(" ","")}>{menuItem.id}</Link></Menu.Item>
         )
       }
     }

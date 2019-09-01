@@ -23,26 +23,48 @@ import {
 } from 'antd';
 const { Option } = Select;
  class SetMenu extends React.Component{
-    constructor(obj){
-      super(obj)
+    constructor(props){
+      super(props)
+      let datas = this.props.location.state;
+      let { id,is_sub }= datas;
+      this.state= {
+          id:datas.id,
+          data:{}
+      }
+    }
+    componentDidMount(){
+        this.Init(this.state.id);
+    };
+
+    async Init(id){
+        let data = {
+            options:"id,admin_id,is_sub, parent_id,title,menu_url,icon,default_selected_keys,default_open_keys",
+            filter:{id:id},
+            orderBy:"",
+            startPops:"",
+            limit:""
+        }
+        let f = new Fetch();
+        let res = await f.fetch(Config.host+'/index/getCurryMenu',data)
+        if(res.status === "success" && res.code === 200){
+          this.setState({
+            data:res.data
+          })
+        }
     }
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            let options = "";
-            if(values.parent_id === "NULL"){
-              delete values.parent_id;
-              options="admin_id,is_sub,title,icon,default_selected_keys,default_open_keys"
-            }else{
-              options = "admin_id,is_sub,partent_id,title,icon,default_selected_keys,default_open_keys"
-            }
+           
             let data = {
-              options:options,
-              fieldValue:values
+              fieldValue:values,
+              whereOption:{
+                  id:values.parent_id
+              }
           }
           let f = new Fetch();
-          let res =  f.fetch(Config.host+'/index/addMenu',data)
+          let res =  f.fetch(Config.host+'/index/udateOne',data)
           if(res.status === "success" && res.code === 200){
             this.setState({
               menuData:res.menuObj
@@ -60,36 +82,37 @@ const { Option } = Select;
         return e && e.fileList;
       };
       render() {
-        let { id } =  this.props;
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
           labelCol: { span: 2 },
           wrapperCol: { span: 6 },
         };
         let admin_id = JSON.parse( localStorage.getItem("user")).id;
+        let datas = this.props.location.state;
+        let { id,is_sub }= datas;
         return (
           <span>
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
               <Form.Item label="is_sub">
-                {getFieldDecorator('is_sub',{ initialValue: "true" })(<Switch defaultChecked  />)}
+                {getFieldDecorator('is_sub',{ initialValue: "" })(<Switch defaultChecked ={ is_sub }  />)}
               </Form.Item>
               <Form.Item label="admin_id">
-                {getFieldDecorator('admin_id', { initialValue: admin_id})(<Input disabled  />)}
+                {getFieldDecorator('admin_id', { initialValue: this.state.data.admin_id||""})(<Input disabled  />)}
               </Form.Item>
               <Form.Item label="parent_id">
-                {getFieldDecorator('parent_id', { initialValue: id })(<Input disabled  />)}
+                {getFieldDecorator('parent_id', { initialValue:this.state.data.parent_id||""})(<Input disabled  />)}
               </Form.Item>
               <Form.Item label="title">
-                {getFieldDecorator('title', { initialValue: "一级菜单" })(<Input  />)}
+                {getFieldDecorator('title', { initialValue: this.state.data.title||"" })(<Input  />)}
               </Form.Item>
               <Form.Item label="icon">
-                {getFieldDecorator('icon', { initialValue: "user" })(<Input />)}
+                {getFieldDecorator('icon', { initialValue: this.state.data.icon||"" })(<Input />)}
               </Form.Item>
               <Form.Item label="default_selected_keys">
-                {getFieldDecorator('default_selected_keys', { initialValue: false })(<Switch />)}
+                {getFieldDecorator('default_selected_keys', { initialValue: this.state.data.default_selected_keys||false })(<Switch />)}
               </Form.Item>
               <Form.Item label="default_open_keys">
-                {getFieldDecorator('default_open_keys', { initialValue: false })(<Switch />)}
+                {getFieldDecorator('default_open_keys', { initialValue: this.state.data.default_open_keys||false })(<Switch />)}
               </Form.Item>
               <Form.Item wrapperCol={{ span: 1, offset: 1 }}>
                 <Button type="primary" htmlType="submit">

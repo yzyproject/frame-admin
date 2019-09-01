@@ -45,8 +45,9 @@ class Index extends React.Component{
                 <span>{menuItem.partent_id }</span>
                 <span>{menuItem.title }</span>
                 <span>{menuItem.menu_url }</span>
-                <span className="add_menu_item "><Link to={{ pathname:'/set_menu',state:{id:menuItem.id }}}>添加应用</Link></span>
-                <span className="add_menu_item "><Link to={{ pathname:'/set_menu',state:{id:menuItem.id }}}>添加菜单</Link></span>
+                <span className="add_menu_item "><Link to={{ pathname:'/edit_menu',state:{id:menuItem.id,is_sub:true }}}>编辑</Link></span>
+                <span className="add_menu_item "><Link to={{ pathname:'/set_module_page',state:{id:menuItem.id,is_sub:true }}}>添加应用</Link></span>
+                <span className="add_menu_item "><Link to={{ pathname:'/set_menu',state:{id:menuItem.id,is_sub:true }}}>添加菜单</Link></span>
             </span>
             }
           
@@ -67,6 +68,7 @@ class Index extends React.Component{
                 <span>{menuItem.partent_id }</span>
                 <span>{menuItem.title }</span>
                 <span>{menuItem.menu_url }</span>
+                <span className="add_menu_item "><Link to={{ pathname:'/edit_menu',state:{id:menuItem.id,is_sub:false }}}>编辑</Link></span>
             </span>
           </Menu.Item>
         )

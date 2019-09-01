@@ -65,8 +65,7 @@ class Login extends React.Component{
             <span className = "form_box" style = {{marginTop:"100px",display:"block",padding:"0 20px"}}>
                 
                 <Form  onSubmit={this.handleSubmit.bind(this)}>
-                    <FormItem
-                    >
+                    <FormItem>
                         {getFieldDecorator('userName', {
                             rules: [{ required: true, message: 'Please input your username!' }],
                         })(
