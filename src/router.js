@@ -8,6 +8,8 @@ import MenuList from './task/menu_list';
 import SetMenu from './task/set_menu';
 import SetModulePage from './task/set_module_page';
 import EditMenu from './task/edit_menu';
+import Upload from './task/upload';
+
 export default class router  extends React.Component{
     render(){
         return(
@@ -21,6 +23,7 @@ export default class router  extends React.Component{
                     <Route exact path="/set_menu" component={ SetMenu } />
                     <Route exact path="/set_module_page" component={ SetModulePage } />
                     <Route exact path="/edit_menu" component={ EditMenu } />
+                    <Route exact path="/upload" component={ Upload } />
                 </div>
             </Router>
         );
