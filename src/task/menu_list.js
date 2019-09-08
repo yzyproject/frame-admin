@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
 import '../css/menu_list.css';
-import { Form, Icon, Input, Button, Checkbox,Layout, Menu, Breadcrumb,TreeSelect } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,Layout, Menu, Breadcrumb,TreeSelect,message } from 'antd';
 import Config from '../config';
 import Fetch from '../common/fetch'; 
 import Islogin from '../common/islogin'; 
@@ -33,6 +33,17 @@ class Index extends React.Component{
           })
         }
     }
+    async delete(id){
+      let data = {
+       id:id
+      }
+      let f = new Fetch();
+      let res = await f.fetch(Config.host+'/index/deleteMenu',data)
+      if(res.status === "success" && res.code === 200){
+        message.info("删除成功！");
+        window.location.reload();
+      }
+    }
     setMenu(menuItem){
       if(menuItem.is_sub){
         return (
@@ -45,6 +56,7 @@ class Index extends React.Component{
                 <span>{menuItem.partent_id }</span>
                 <span>{menuItem.title }</span>
                 <span>{menuItem.menu_url }</span>
+                <span className="add_menu_item " ref = {menuItem.id} onClick={()=>{this.delete(menuItem.id)}}> 删除</span>
                 <span className="add_menu_item "><Link to={{ pathname:'/edit_menu',state:{id:menuItem.id,is_sub:true }}}>编辑</Link></span>
                 <span className="add_menu_item "><Link to={{ pathname:'/set_module_page',state:{id:menuItem.id,is_sub:true }}}>添加应用</Link></span>
                 <span className="add_menu_item "><Link to={{ pathname:'/set_menu',state:{id:menuItem.id,is_sub:true }}}>添加菜单</Link></span>
@@ -68,6 +80,7 @@ class Index extends React.Component{
                 <span>{menuItem.partent_id }</span>
                 <span>{menuItem.title }</span>
                 <span>{menuItem.menu_url }</span>
+                <span className="add_menu_item "onClick={()=>{this.delete(menuItem.id)}}>删除</span>
                 <span className="add_menu_item "><Link to={{ pathname:'/edit_menu',state:{id:menuItem.id,is_sub:false }}}>编辑</Link></span>
             </span>
           </Menu.Item>

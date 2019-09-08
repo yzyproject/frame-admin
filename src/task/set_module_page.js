@@ -44,7 +44,7 @@ const admin_id = (JSON.parse( (localStorage.getItem("user")))||{}).id||"";
         let data = {
             fieldValue:menuArr
         }
-        let res =  f.fetch(Config.host+'/index/addMany',data);
+        let res =  f.fetch(Config.host+'/index/addMenuMany',data);
         if(res.status === "success" && res.code === 200){
             console.log("===============success================")
         
