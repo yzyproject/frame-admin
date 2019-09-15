@@ -21,6 +21,7 @@ class Index extends React.Component{
     async Init(values){
         let data = {
             options:"id,is_sub, parent_id,title,menu_url,icon,default_selected_keys,default_open_keys",
+            filter:{admin_id:{value:1,fl:"1between2"}},
             orderBy:"",
             startPops:"",
             limit:""

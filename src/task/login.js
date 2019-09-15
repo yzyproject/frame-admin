@@ -30,8 +30,8 @@ class Login extends React.Component{
             }
             data = Object.assign(user,this.state,data);
             data.filter = {
-                name:{target:user.userName,fl:"rt%"},
-                password:{target:user.password}
+                name:{value:user.userName,fl:"rt%"},
+                password:{value:user.password}
             }
             let f = new Fetch();
             let res = await f.fetch(Config.host+'/login/login',data)

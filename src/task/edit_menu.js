@@ -60,7 +60,7 @@ const { Option } = Select;
             let data = {
               fieldValue:values,
               whereOption:{
-                  id:values.parent_id
+                  id:this.state.id
               }
           }
           let f = new Fetch();
