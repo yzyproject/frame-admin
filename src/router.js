@@ -9,6 +9,8 @@ import SetMenu from './task/set_menu';
 import SetModulePage from './task/set_module_page';
 import EditMenu from './task/edit_menu';
 import Upload from './task/upload';
+import ReduxPage from './redux/redux_page';
+import ReactRedux from './redux/react_redux';
 
 export default class router  extends React.Component{
     render(){
@@ -24,6 +26,8 @@ export default class router  extends React.Component{
                     <Route exact path="/set_module_page" component={ SetModulePage } />
                     <Route exact path="/edit_menu" component={ EditMenu } />
                     <Route exact path="/upload" component={ Upload } />
+                    <Route exact path="/redux_page" component={ ReduxPage } />
+                    <Route exact path="/react_redux" component={ ReactRedux } />
                 </div>
             </Router>
         );
