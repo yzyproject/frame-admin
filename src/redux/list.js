@@ -1,18 +1,13 @@
 import React from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+// import { Router, Route, Link } from 'react-router-dom';
 import 'antd/dist/antd.css'
 import { Form, Icon, Input, Button, Checkbox,Layout, Menu, Breadcrumb,TreeSelect } from 'antd';
 import Config from '../config';
 import Fetch from '../common/fetch'; 
 import Islogin from '../common/islogin'; 
-import store from "./index";
 import {change_state,trank_action} from "./create_action";
 import {connect} from 'react-redux'  //引入连接器
 let lg = new Islogin();
-const FormItem = Form.Item;
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
-const { SHOW_PARENT } = TreeSelect;
 const  List = (props)=>{
     let {onChange,value,onClick} = props;
     return (
@@ -41,7 +36,20 @@ const dispathChange = (dispath)=>{
            dispath(action);
         },
         onClick(){
-            const action = trank_action();
+            // const action = trank_action();
+           const action = async (dispatch)=>{
+                let data = {
+                    options:"id,is_sub, parent_id,title,menu_url,icon,default_selected_keys,default_open_keys",
+                    orderBy:"",
+                    startPops:"",
+                    limit:""
+                }
+                let f = new Fetch();
+                let res = await f.fetch(Config.host+'/index/getMenu',data);
+                const action = change_state(res.menuObj.menu);
+                console.log("res:",res)
+                dispatch(action);
+            }
             dispath(action);
         }
     }
